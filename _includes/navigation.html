@@ -1,0 +1,59 @@
+<nav class="navbar">
+  <ul class="navbar-nav">
+
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <span class="nav-icon">
+          <img class="icon-img" id="b-icon" src="images/B Icon.svg" alt="B icon">
+        </span>
+        <span class="link-text" id="logo-text">BGEVKO</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="/" class="nav-link" {% if page.url == "/" %}id="selected"{% endif %}>
+        <span class="nav-icon">
+          <img class="icon-img" id="home-icon" src="images/Home Icon.svg" alt="home icon">
+        </span>
+        <span class="link-text">Home</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="science.html" class="nav-link" {% if page.url == "/science.html"%}id="selected"{% endif %}>
+        <span class="nav-icon">
+          <img class="icon-img" id="science-icon" src="images/Science Icon.svg" alt="science icon">
+        </span>
+        <span class="link-text">Science</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="env-bio.html" class="nav-link" {% if page.url == "/env-bio.html"%}id="selected"{% endif %}>
+        <span class="nav-icon">
+          <img class="icon-img" id="envbio-icon" src="images/EnvBio Icon.svg" alt="plant icon">
+        </span>
+        <span class="link-text">Environmental Biology</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="general-biology.html" class="nav-link" class="nav-link" {% if page.url == "/general-biology.html"%}id="selected"{% endif %}>
+        <span class="nav-icon">
+          <img class="icon-img" id="bio-icon" src="images/Bio Icon.svg" alt="bio icon">
+        </span>
+        <span class="link-text">General Biology</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjsjtarwM_7AhWFRvEDHfBiCZ0QwqsBegQICRAF&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ&usg=AOvVaw0aHtehaphMhOCAkCydRLZU" class="nav-link">
+        <span class="nav-icon">
+          <img class="icon-img" id="info-icon" src="images/Info Icon.svg" alt="info icon">
+        </span>
+        <span class="link-text">About</span>
+      </a>
+    </li>
+
+  </ul>
+</nav>

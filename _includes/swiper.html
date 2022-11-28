@@ -1,0 +1,147 @@
+<main style="width: 100%">
+  <header class="home-header">{{ page.title }}</header>
+  <div class="container" style="width: 90%; max-width: 900px;">
+    <p class="append-buttons">
+      <span class="append-item">
+        <a href="#" class="concepts active-btn">Concepts</a>
+      </span>
+      <span class="append-item">
+        <a href="#" class="skills">Skills</a>
+      </span>
+      <span class="append-item">
+        <a href="#" class="connections">Connections</a>
+      </span>
+    </p>
+  
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for image in site.static_files %}
+          {% if image.path contains page.folder %}
+            <div class="swiper-slide">
+              <img src="{{ site.baseurl }}{{ image.path }}"/>
+            </div>
+            {% endif %}
+          {% endfor %}
+      </div>
+      <div class="pag-wrapper">
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="swiper-button-right-container">
+        <div class="swiper-button-next swiper-button"></div>
+      </div>
+      <div class="swiper-button-prev swiper-button"></div>
+      
+    </div>
+    <div class="section-btn-container">
+      <a href="{{page.prev-link}}.html" class="section-btn" id="prev-section">{{page.prev-section}}</a>
+      <a href="{{page.next-link}}.html" class="section-btn hidden" id="next-section">{{page.next-section}}</a>
+    </div>
+</div>
+
+</main>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  class pageBreaks {
+    static concept = 0
+    static skills = 0
+    static connect = 0
+  }
+  setSkillsStart("{{ page.skills-start }}")
+  setConnectStart("{{ page.connect-start }}")
+  const CONCEPTS_START = 0
+  const SKILLS_START = pageBreaks.skills
+  const CONNECT_START = pageBreaks.connect
+
+  function setSkillsStart(some_int) {
+    pageBreaks.skills = Number(some_int)
+  }
+  function setConnectStart(some_int) {
+    pageBreaks.connect = Number(some_int)
+  }
+
+  const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: false,
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    // Enable keyboard controls
+    keyboard: {
+      enabled: true,
+    },
+
+    slidesPerView: 1,
+    autoHeight: true,
+  });
+
+  document
+    .querySelector(".concepts")
+    .addEventListener('click', (e) => {
+      e.preventDefault
+      swiper.slideTo(CONCEPTS_START, 0)
+    })
+
+  document
+  .querySelector(".skills")
+  .addEventListener('click', (e) => {
+    e.preventDefault
+    swiper.slideTo(SKILLS_START, 0)
+  })
+
+  document
+    .querySelector(".connections")
+    .addEventListener('click', (e) => {
+      e.preventDefault
+      swiper.slideTo(CONNECT_START, 0)
+  })
+
+    swiper.on('transitionEnd', updateActiveButton)
+    swiper.on('reachEnd', lastPage)
+    swiper.on('reachBeginning', firstPage)
+
+    function updateActiveButton() {
+      var index = swiper.realIndex
+      if (index < SKILLS_START) {
+        document.querySelector('.concepts').classList.add('active-btn')
+        document.querySelector('.skills').classList.remove('active-btn')
+        document.querySelector('.connections').classList.remove('active-btn')
+      } else if (index >= SKILLS_START && index < CONNECT_START) {
+        document.querySelector('.concepts').classList.remove('active-btn')
+        document.querySelector('.skills').classList.add('active-btn')
+        document.querySelector('.connections').classList.remove('active-btn')
+      } else if (index >= CONNECT_START) {
+        document.querySelector('.concepts').classList.remove('active-btn')
+        document.querySelector('.skills').classList.remove('active-btn')
+        document.querySelector('.connections').classList.add('active-btn')
+      }
+      
+      if (!swiper.isEnd) {
+        document.querySelector('#next-section').classList.add("hidden")
+      }
+      if (!swiper.isBeginning) {
+        document.querySelector('#prev-section').classList.add("hidden")
+      }
+    }
+
+    function lastPage() {
+      document.querySelector('#next-section').classList.remove("hidden")
+    }
+
+    function firstPage() {
+      document.querySelector('#prev-section').classList.remove("hidden")
+    }
+</script>
