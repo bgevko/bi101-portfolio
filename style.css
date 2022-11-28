@@ -10,7 +10,8 @@
   --highlight: rgba(255, 255, 255, 0.2);
   --highlight-secondary: rgba(255, 255, 255, 0.05);
   --swiper-theme-color: var(--bg-primary) !important;
-  --swiper-navigation-size: 1.5rem !important;
+  --swiper-navigation-size: .7rem !important;
+  --swiper-pagination-bullet-size: .3rem !important;
 
 }
 
@@ -196,6 +197,15 @@ width: 90%;
   .section-text {font-size: 1.2rem; display: flex;}
   .section-container{flex-direction: row;}
   .section-link-item{height: 20rem;}
+  .append-buttons a {
+    font-size: 1.3rem !important;
+  }
+  .swiper-button {
+    --swiper-navigation-size: 1.5rem !important;
+  }
+  .swiper-pagination-bullet {
+    --swiper-pagination-bullet-size: .5rem;
+  }
 }
 
 @media only screen and (min-width: 1025px) and (max-width: 1200px) {
@@ -211,6 +221,15 @@ width: 90%;
   .section-text {font-size: 1rem; display: flex;}
   .section-container{flex-direction: row;}
   .section-link-item{height: 20rem;}
+  .append-buttons a {
+    font-size: 1.3rem !important;
+  }
+  .swiper-button {
+    --swiper-navigation-size: 1.5rem !important;
+  }
+  .swiper-pagination-bullet {
+    --swiper-pagination-bullet-size: .5rem;
+  }
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
@@ -262,6 +281,22 @@ width: 90%;
   .section-line {
     display: flex;
     margin-top: .7rem;
+  }
+
+  .append-item a {
+    font-size: .9rem !important;
+  }
+
+  .swiper-button {
+    --swiper-navigation-size: 1rem !important;
+  }
+
+  .section-btn {
+    font-size: .9rem !important;
+  }
+
+  .swiper-pagination-bullet {
+    --swiper-pagination-bullet-size: .4rem;
   }
 }
 
@@ -324,6 +359,22 @@ width: 90%;
     display: flex;
     margin-top: .7rem;
   }
+
+  .append-item a {
+    font-size: .9rem !important;
+  }
+
+  .swiper-button {
+    --swiper-navigation-size: .8rem !important;
+  }
+
+  .section-btn {
+    font-size: .9rem !important;
+  }
+
+  .swiper-pagination-bullet {
+    --swiper-pagination-bullet-size: .4rem;
+  }
 }
 
 /* Hover */
@@ -378,10 +429,6 @@ width: 90%;
   width: 0% !important;
 }
 
-.swiper-button-right-container {
-  
-}
-
 /* ---- */
 .append-buttons {
   display: flex;
@@ -396,7 +443,7 @@ width: 90%;
   text-decoration: none;
   font-weight: 300;
   padding: .5rem .5rem;
-  font-size: 1.3rem;
+  font-size: .8rem;
 }
 
 .append-item {
