@@ -58,7 +58,6 @@ main {
 }
 
 .nav-item:last-child {
-  margin-top: auto;
   margin-bottom: 5rem;
 }
 
