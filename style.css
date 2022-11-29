@@ -1,12 +1,12 @@
 :root {
   font-size: 16px;
   font-family: 'Roboto';
-  --text-primary: black;
-  --text-secondary: white;
+  --text-primary: #454545;
+  --text-secondary:  rgb(251, 251, 246);
   --text-selected: rgb(246, 123, 46);
   --text-dull: rgb(171, 171, 171);
   --bg-primary: #3A2F2F;
-  --bg-secondary: white;
+  --bg-secondary:  rgb(251, 251, 246);
   --highlight: rgba(255, 255, 255, 0.2);
   --highlight-secondary: rgba(255, 255, 255, 0.05);
   --swiper-theme-color: var(--bg-primary) !important;
@@ -16,8 +16,8 @@
 }
 
 body {
-  color: black;
-  background-color: white;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
   display: flex;
   margin: 0;
   padding: 0;
@@ -59,7 +59,7 @@ main {
 
 .nav-item:last-child {
   margin-top: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 5rem;
 }
 
 .nav-link {
