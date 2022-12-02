@@ -1,59 +1,71 @@
 <main style="width: 100%">
   <header class="home-header">{{ page.title }}</header>
-  <div class="container" style="width: 90%; max-width: 900px;">
-    <p class="append-buttons">
-      <span class="append-item">
-        <a href="#" class="concepts active-btn">Concepts</a>
-      </span>
-      <span class="append-item">
-        <a href="#" class="skills">Skills</a>
-      </span>
-      <span class="append-item">
-        <a href="#" class="connections">Connections</a>
-      </span>
-    </p>
-  
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        {% for image in site.static_files %}
-          {% if image.path contains page.folder %}
-            <div class="swiper-slide">
-              <img src="{{ site.baseurl }}{{ image.path }}"/>
-            </div>
-            {% endif %}
-          {% endfor %}
+  <div class="flex-container">
+    <div class="container" style="width: 90%; max-width: 900px;">
+      <p class="append-buttons">
+        <span class="append-item">
+          <a href="#" class="concepts active-btn">Concepts</a>
+        </span>
+        <span class="append-item">
+          <a href="#" class="skills">Skills</a>
+        </span>
+        <span class="append-item">
+          <a href="#" class="connections">Connections</a>
+        </span>
+      </p>
+    
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          {% for image in site.static_files %}
+            {% if image.path contains page.folder %}
+              <div class="swiper-slide">
+                <img src="{{ site.baseurl }}{{ image.path }}"/>
+              </div>
+              {% endif %}
+            {% endfor %}
+        </div>
+        <div class="pag-wrapper">
+          <div class="swiper-pagination"></div>
+        </div>
+        <div class="swiper-button-right-container">
+          <div class="swiper-button-next swiper-button"></div>
+        </div>
+        <div class="swiper-button-prev swiper-button"></div>
+        
       </div>
-      <div class="pag-wrapper">
-        <div class="swiper-pagination"></div>
+      <div class="section-btn-container">
+        <a href="{{page.prev-link}}.html" class="section-btn" id="prev-section">{{page.prev-section}}</a>
+        <a href="{{page.next-link}}.html" class="section-btn hidden" id="next-section">{{page.next-section}}</a>
       </div>
-      <div class="swiper-button-right-container">
-        <div class="swiper-button-next swiper-button"></div>
-      </div>
-      <div class="swiper-button-prev swiper-button"></div>
-      
     </div>
-    <div class="section-btn-container">
-      <a href="{{page.prev-link}}.html" class="section-btn" id="prev-section">{{page.prev-section}}</a>
-      <a href="{{page.next-link}}.html" class="section-btn hidden" id="next-section">{{page.next-section}}</a>
+    <div class="card-container">
+      {% include card.html %}
     </div>
-</div>
-
+  </div>
 </main>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-<script>
+<script type="text/javascript">
   class pageBreaks {
     static concept = 0
     static skills = 0
     static connect = 0
+    static last = 0
   }
+
+  class data {
+    static cards = JSON.parse('{{ site.data.infocards | jsonify}}')[0]
+  }
+
   setSkillsStart("{{ page.skills-start }}")
   setConnectStart("{{ page.connect-start }}")
+  setLastSlide("{{ page.last-slide }}")
+
   const CONCEPTS_START = 0
   const SKILLS_START = pageBreaks.skills
   const CONNECT_START = pageBreaks.connect
+  const LAST_SLIDE = pageBreaks.last
 
   function setSkillsStart(some_int) {
     pageBreaks.skills = Number(some_int)
@@ -61,8 +73,15 @@
   function setConnectStart(some_int) {
     pageBreaks.connect = Number(some_int)
   }
+  function setLastSlide(some_int) {
+    pageBreaks.last = Number(some_int)
+  }
 
   const swiper = new Swiper('.swiper', {
+    on: {
+      init: initCard
+    },
+
     // Optional parameters
     direction: 'horizontal',
     loop: false,
@@ -109,10 +128,17 @@
       swiper.slideTo(CONNECT_START, 0)
   })
 
+    // Update active button dynamically
     swiper.on('transitionEnd', updateActiveButton)
-    swiper.on('reachEnd', lastPage)
-    swiper.on('reachBeginning', firstPage)
 
+     // Change infocard dynamically
+     swiper.on('transitionEnd', setCard)
+
+    // Hide transition buttons
+    swiper.on('slideChange', hideTransitionsButtons)
+    swiper.on('slideChange', viewTransitionButtons)
+
+   
     function updateActiveButton() {
       var index = swiper.realIndex
       if (index < SKILLS_START) {
@@ -128,20 +154,50 @@
         document.querySelector('.skills').classList.remove('active-btn')
         document.querySelector('.connections').classList.add('active-btn')
       }
-      
-      if (!swiper.isEnd) {
+    }
+
+    function hideTransitionsButtons() {
+      let index = swiper.realIndex
+      if (index === 0 || index === LAST_SLIDE) {
+        return
+      }
+      document.querySelector('#prev-section').style.visibility = "hidden"
+      document.querySelector('#next-section').style.visibility = "hidden"
+    }
+
+    function viewTransitionButtons() {
+      let index = swiper.realIndex
+      // View previous section button and hide next button
+      if (index === 0) {
+        document.querySelector('#prev-section').style.visibility = "visible"
+        document.querySelector('#prev-section').classList.remove("hidden")
         document.querySelector('#next-section').classList.add("hidden")
+        return
       }
-      if (!swiper.isBeginning) {
+
+      // View next section button and hide previous section button
+      if (index === LAST_SLIDE) {
+        document.querySelector('#next-section').style.visibility = "visible"
+        document.querySelector('#next-section').classList.remove("hidden")
         document.querySelector('#prev-section').classList.add("hidden")
+        return
       }
     }
 
-    function lastPage() {
-      document.querySelector('#next-section').classList.remove("hidden")
+    function initCard() {
+      let cards = data.cards['{{ page.section }}']
+      document.querySelector(".card-header").innerHTML = cards[0].title
+      document.querySelector(".card-content").innerHTML = cards[0].content
     }
 
-    function firstPage() {
-      document.querySelector('#prev-section').classList.remove("hidden")
+    function clearCard() {
+      document.querySelector(".card").style.visibility = "hidden"
     }
+
+    function setCard() {
+      let cards = data.cards['{{ page.section }}']
+      document.querySelector(".card-header").innerHTML = cards[swiper.realIndex].title
+      document.querySelector(".card-content").innerHTML = cards[swiper.realIndex].content
+    }
+
 </script>
