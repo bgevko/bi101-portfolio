@@ -1,5 +1,5 @@
 # bi101-portfolio
-This is a static site that I built for a Biology class final. The purpose of this site was to satisify the final portfolio requirement of the class, but also to gain experience in web development and create a finished product for my tech portfolio as well. 
+This is my first completed project, a static site that I used for my Biology final. The purpose of this site was to satisify the final portfolio requirement of the class, but also to gain experience in web development and create a finished product for my tech portfolio as well. 
 
 ## Frameworks used:
 **Jekyll**,
@@ -16,6 +16,17 @@ This is a static site that I built for a Biology class final. The purpose of thi
 - Initial experience with Jekyll
 - Introduction to GitHub pages and GitHub actions
 - CSS media queries and responsive design
+- I deleted some very important items with git rm -rf before the first commit. Fortunately, I was able to recover them by doing the following:
+  ```bash
+  git prune -n
+  ```
+  This generated a very long list of item ids that were deleted, but still in memory, waiting to be overwritten. 
+  I took each item id one by one and used the following command to recover the file:
+  ```bash
+  git cat-file -p <item-d> <restored item name>
+  ```
+  
+  The big lesson here is, **commit early**, **commit often**, and **don't blindly use git commands without checking what they do first.**
 
 ## Things I could do better next time
 - Although knowing how to manipulate the page with Javascript is really useful, I noticed that the more dynamic usage I needed, the more "hacky" the solutions became. Although I got a working product, I had to jump through hoops to piece together the front end logic. If I had to built it again, I would use React.
